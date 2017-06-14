@@ -1,4 +1,4 @@
-* Setup
+# Setup
 
 Install Bitcoin Core
 
@@ -13,14 +13,14 @@ rpcpassword=pass
 rpcport=8332
 ```
 
-* Running
+# Running
 
 ```
 ~/opt/bitcoin/bin/bitcoind
 ~/opt/bitcoin/bin/bitcoin-cli getnewaddress
 ```
 
-* Validation
+# Validation
 
 Update `config.json` with the address from `getnewaddress` then
 
