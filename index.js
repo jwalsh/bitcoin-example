@@ -6,6 +6,23 @@ var crypto = require('crypto');
 
 var config = require('./config.json');
 
+var fs = require('fs')
+
+
+function hashFile(file, algo){
+  var shasum = crypto.createHash(algo);
+  var s = fs.ReadStream(file);
+  s.on('data', function(d){
+    shasum.update(d);
+
+  })
+  s.on('end', function(){
+    var d = shasum.digest('hex')
+    console.log(d)
+    return d
+  })
+}
+
 //these are some configurations that will need adjusting based on the configuration of your bitcoin.conf file
 var client = new bitcoin.Client({
   host: 'localhost',
