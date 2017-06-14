@@ -4,6 +4,8 @@ var bitcoin = require('bitcoin');
 var crypto = require('crypto');
 // console.log(Object.keys(crypto));
 
+var config = require('./config.json');
+
 //these are some configurations that will need adjusting based on the configuration of your bitcoin.conf file
 var client = new bitcoin.Client({
   host: 'localhost',
@@ -13,17 +15,15 @@ var client = new bitcoin.Client({
 });
 //change the address to the address stored on your bitcoin core instance
 
-var address = "mneUFSS4hz8deEfQqXypQ3Ho36tASNhirL"
-var message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sodales augue ut commodo tempus. Nullam porta libero vel urna viverra hendrerit. "
-var signature1 = ""
+var address = config.address;
+var message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sodales augue ut commodo tempus. Nullam porta libero vel urna viverra hendrerit. ";
 
 client.signMessage(address, message, function(err, signature){
   if(err){
     return console.error(err);
   }
 
-  signature1 = signature;
-  client.verifyMessage(address, signature1, message, function(err, boolVal){
+  client.verifyMessage(address, signature, message, function(err, boolVal){
     if (err){
       return console.error(err);
     }
@@ -35,5 +35,6 @@ client.signMessage(address, message, function(err, signature){
     console.log(`~/opt/bitcoin/bin/bitcoin-cli verifymessage "${address}" "${signature}" "${message}"`)
 
   });
-  console.log("signature "+signature)
+
+  console.log('signature', signature);
 })
